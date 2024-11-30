@@ -11,9 +11,11 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
+import useBasketStore from "@/store/store";
 
 function Header() {
   const { user } = useUser();
+  const itemCount = useBasketStore((state) => state.items.reduce((total, item) => total + item.quantity, 0))
   const createPassKey = async () => {
     try{
       const response = await user?.createPasskey();
@@ -82,6 +84,9 @@ function Header() {
           "
           >
             <TrolleyIcon className="h-6 w-6" />
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+              {itemCount}
+            </span>
             {/* items count  */}
             <span>My Basket</span>
           </Link>
