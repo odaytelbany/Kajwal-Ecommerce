@@ -3,9 +3,18 @@ import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
 import { getAllCategories } from "@/sanity/lib/products/getAllCategories"; 
 import BlackFridayBanner from "@/components/BlackFriday";
 
+export const dynamic = "force-static";
+export const revalidate = 60;
+
 export default async function Home() {
+
+  
   const products = await getAllProducts();
   const categories = await getAllCategories();
+  
+  console.log(
+    crypto.randomUUID().slice(0, 5) + `>>> Rendered the product page cache eith ${products.length} products and ${categories.length} categories`
+  )
 
   // console.log(products);
   return (
