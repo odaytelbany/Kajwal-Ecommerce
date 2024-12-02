@@ -22,26 +22,26 @@ const ProductThumb = ({ product }: { product: Product }) => {
           />
         )}
         {isOutOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <span className="text-white font-bold text-lg">Out of Stock</span>
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70">
+            <span className="text-white font-bold text-xl">نفذت الكمية</span>
           </div>
         )}
       </div>
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800 truncate">
+        <h2 className="text-lg font-semibold text-gray-800 truncate text-right">
           {product.name}
         </h2>
-        <p className="mt-2 text-sm text-gray-600 line-clamp-2">
-          {
-            product.description?.map((block) =>
+        <p className="mt-2 text-sm text-gray-600 line-clamp-2 text-right">
+          {product.description
+            ?.map((block) =>
               block._type === "block"
                 ? block.children?.map((child) => child.text).join("")
                 : ""
-            ).join(" ") || "no description avilable"
-          }
+            )
+            .join(" ") || "no description avilable"}
         </p>
-        <p className="mt-2 text-lg font-bold text-gray-900">
-          £{product.price?.toFixed(2)}
+        <p className="mt-2 text-lg font-bold text-gray-900 text-right">
+          ₪{product.price?.toFixed(2)}
         </p>
       </div>
     </Link>

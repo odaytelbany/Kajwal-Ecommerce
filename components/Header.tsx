@@ -15,25 +15,27 @@ import useBasketStore from "@/store/store";
 
 function Header() {
   const { user } = useUser();
-  const itemCount = useBasketStore((state) => state.items.reduce((total, item) => total + item.quantity, 0))
+  const itemCount = useBasketStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0)
+  );
   const createPassKey = async () => {
-    try{
+    try {
       const response = await user?.createPasskey();
       console.log(response);
-    }catch(err){
+    } catch (err) {
       console.log("ERROR: ", err);
     }
-  }
+  };
 
   return (
     <header className="flex flex-wrap justify-between items-center px-4 py-2">
-      <div className="flex flex-1 flex-wrap justify-between items-center ">
-        <div>
+      <div className="flex flex-row-reverse flex-1 flex-wrap justify-between items-center ">
+        <div className="m-auto">
           <Link
             href={"/"}
             className="text-2xl font-bold text-blue-500 cursor-pointer hover:opacity-50 mx-auto sm:mx-0"
           >
-            Shopr
+            التحرير
           </Link>
         </div>
 
@@ -44,10 +46,11 @@ function Header() {
           <input
             type="text"
             name="query"
-            placeholder="Search for products"
+            placeholder="إبحث عن المنتجات"
             className="
             bg-gray-100
             text-gray-800
+            text-right
             px-4
             py-2
             rounded
@@ -63,6 +66,58 @@ function Header() {
         </Form>
 
         <div className="flex flex-1 items-center space-x-4 mt-4 sm:mt-0 sm:flex-none ">
+          <ClerkLoaded>
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <UserButton />
+                <div className="hidden sm:block text-xs">
+                  <p className="text-gray-400">مرحباً بك</p>
+                  <p className="font-bold">{user?.fullName}!</p>
+                </div>
+              </div>
+            ) : (
+              <SignInButton mode="modal">
+                تسجيل الدخول
+              </SignInButton>
+            )}
+
+            {user?.passkeys.length === 0 && (
+              <button
+                onClick={createPassKey}
+                className="bg-white hidden md:block hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border-blue-300 border"
+              >
+                أنشئ مفتاح
+              </button>
+            )}
+
+            <SignedIn>
+              <Link
+                href="/order"
+                className="
+              flex
+              flex-1
+              relative 
+              justify-center 
+              sm:justify-start 
+              sm:flex-none 
+              items-center 
+              space-x-2 
+              bg-blue-500 
+              hover:bg-blue-700 
+              text-white 
+              font-bold 
+              py-2 
+              px-4 
+              rounded
+            "
+              >
+                <PackageIcon className="h-6 w-6" />
+                {/* items count  */}
+                <span>طلباتي</span>
+              </Link>
+            </SignedIn>
+          </ClerkLoaded>
+
           <Link
             href="/basket"
             className="
@@ -88,55 +143,8 @@ function Header() {
               {itemCount}
             </span>
             {/* items count  */}
-            <span>My Basket</span>
+            <span>السلة</span>
           </Link>
-
-          <ClerkLoaded>
-            <SignedIn>
-              <Link
-                href="/order"
-                className="
-              flex
-              flex-1
-              relative 
-              justify-center 
-              sm:justify-start 
-              sm:flex-none 
-              items-center 
-              space-x-2 
-              bg-blue-500 
-              hover:bg-blue-700 
-              text-white 
-              font-bold 
-              py-2 
-              px-4 
-              rounded
-            "
-              >
-                <PackageIcon className="h-6 w-6" />
-                {/* items count  */}
-                <span>My Orders</span>
-              </Link>
-            </SignedIn>
-
-            {user ? (
-              <div className="flex items-center space-x-2">
-                <UserButton />
-                <div className="hidden sm:block text-xs">
-                  <p className="text-gray-400">Welcome Back</p>
-                  <p className="font-bold">{user?.fullName}!</p>
-                </div>
-              </div>
-            ) : (
-              <SignInButton mode="modal" />
-            )}
-
-            {user?.passkeys.length === 0 && (
-              <button onClick={createPassKey} className="bg-white hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border-blue-300 border">
-                Create passkey
-              </button>
-            )}
-          </ClerkLoaded>
         </div>
       </div>
     </header>

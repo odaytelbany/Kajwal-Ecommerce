@@ -6,6 +6,9 @@ import { SanityLive } from "@/sanity/lib/live";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import { DisableDraftMode } from "@/components/DisableDraftMode";
+import { Cairo } from 'next/font/google'
+ 
+const cairo = Cairo({ subsets: ['arabic'] })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,7 +32,7 @@ export default async function RootLayout({
               </>
             )
           }
-          <main>
+          <main className={cairo.className}>
             <Header />
             {children}
           </main>

@@ -36,17 +36,17 @@ export function CategorySelectorComponent({
           aria-expanded={open}
           className="w-full max-w-full relative flex justify-center sm:justfy-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 hover:text-white font-bold py-2 px-4 rounded"
         >
+          <ChevronsUpDown className="mr-2 h-4 w-4 shrink-0" />
           {value
             ? categories.find((category) => category._id === value)?.title
-            : "Filter by Category"}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0" />
+            : "فرز حسب الأقسام"}
         </Button>
       </PopoverTrigger>
 
       <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput
-            placeholder="Search category..."
+            placeholder="...بحث القسم"
             className="h-9"
             onKeyDown={(e) => {
               if (e.key == "Enter") {
@@ -64,8 +64,8 @@ export function CategorySelectorComponent({
             }}
           />
           <CommandList>
-            <CommandEmpty>No Category found.</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty>القسم غير موجود.</CommandEmpty>
+            <CommandGroup className="text-right">
               {categories.map((category) => (
                 <CommandItem
                   key={category._id}
