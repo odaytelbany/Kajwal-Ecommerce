@@ -63,7 +63,7 @@ const BasketPage = () => {
     <div className="container mx-auto p-4 max-w-6xl">
       <h1 className="text-2xl font-bold mb-4 text-right">سلة المشتريات</h1>
       <div className="flex flex-col lg:flex-row-reverse gap-8">
-        <div className="flex-grow">
+        <div className="flex-grow mb-52">
           {groupedItems.map((item) => (
             <div
               key={item.product._id}
@@ -87,7 +87,7 @@ const BasketPage = () => {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-lg sm:text-xl font-semibold truncate text-right">
+                  <h2 className="text-lg sm:text-xl font-semibold text-right truncate">
                     {item.product.name}
                   </h2>
                   <p className="text-sm sm:text-base text-right">
@@ -96,7 +96,7 @@ const BasketPage = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center ml-4 flex-shrink-0">
+              <div className="flex justify-center items-center flex-shrink-0">
                 <AddToBasketButton product={item.product} />
               </div>
             </div>
