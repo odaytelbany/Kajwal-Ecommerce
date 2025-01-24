@@ -35,7 +35,7 @@ function Header() {
             href={"/"}
             className="text-2xl font-bold text-blue-500 cursor-pointer hover:opacity-50 mx-auto sm:mx-0"
           >
-            التحرير
+            كاجوال
           </Link>
         </div>
 
